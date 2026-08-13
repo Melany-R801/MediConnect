@@ -1,0 +1,222 @@
+<div class="dashboard-layout">
+
+  <!-- MENÚ LATERAL -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <h2>MediConnect</h2>
+      <span>Sistema médico</span>
+    </div>
+
+    <nav class="menu">
+
+      <a routerLink="/dashboard" routerLinkActive="active">
+        🏠 Dashboard
+      </a>
+
+      <a routerLink="/usuarios" routerLinkActive="active">
+        👥 Usuarios
+      </a>
+
+      <a routerLink="/pacientes" routerLinkActive="active">
+        🧑 Pacientes
+      </a>
+
+      <a routerLink="/doctores" routerLinkActive="active">
+        👨‍⚕️ Doctores
+      </a>
+
+      <a routerLink="/especialidades" routerLinkActive="active">
+        🏥 Especialidades
+      </a>
+
+      <a routerLink="/citas" routerLinkActive="active">
+        📅 Citas
+      </a>
+
+      <a routerLink="/historiales" routerLinkActive="active">
+        📋 Historiales
+      </a>
+
+      <a routerLink="/recetas" routerLinkActive="active">
+        💊 Recetas
+      </a>
+
+    </nav>
+
+    <div class="logout-container">
+
+      <button
+        class="logout-button"
+        (click)="cerrarSesion()"
+      >
+        🚪 Cerrar sesión
+      </button>
+
+    </div>
+
+  </aside>
+
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div>
+        <h1>Dashboard</h1>
+        <p>Panel principal de MediConnect</p>
+      </div>
+
+      <div class="user-info">
+
+        <span>👤</span>
+
+        <div>
+          <strong>{{ nombreUsuario }}</strong>
+          <small>{{ rolUsuario }}</small>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <section class="welcome">
+
+      <h2>Bienvenido a MediConnect</h2>
+
+      <p>
+        Sistema de gestión de citas médicas,
+        pacientes y atención clínica.
+      </p>
+
+    </section>
+
+
+    <!-- TARJETAS -->
+    <section class="cards">
+
+      <a
+        routerLink="/pacientes"
+        class="dashboard-card"
+      >
+
+        <div class="card-icon">
+          🧑
+        </div>
+
+        <div>
+          <h3>Pacientes</h3>
+          <p>Gestionar pacientes registrados</p>
+        </div>
+
+      </a>
+
+
+      <a
+        routerLink="/doctores"
+        class="dashboard-card"
+      >
+
+        <div class="card-icon">
+          👨‍⚕️
+        </div>
+
+        <div>
+          <h3>Doctores</h3>
+          <p>Gestionar médicos del sistema</p>
+        </div>
+
+      </a>
+
+
+      <a
+        routerLink="/especialidades"
+        class="dashboard-card"
+      >
+
+        <div class="card-icon">
+          🏥
+        </div>
+
+        <div>
+          <h3>Especialidades</h3>
+          <p>Gestionar especialidades médicas</p>
+        </div>
+
+      </a>
+
+
+      <a
+        routerLink="/citas"
+        class="dashboard-card"
+      >
+
+        <div class="card-icon">
+          📅
+        </div>
+
+        <div>
+          <h3>Citas</h3>
+          <p>Administrar citas médicas</p>
+        </div>
+
+      </a>
+
+
+      <a
+        routerLink="/historiales"
+        class="dashboard-card"
+      >
+
+        <div class="card-icon">
+          📋
+        </div>
+
+        <div>
+          <h3>Historiales</h3>
+          <p>Consultar historiales médicos</p>
+        </div>
+
+      </a>
+
+
+      <a
+        routerLink="/recetas"
+        class="dashboard-card"
+      >
+
+        <div class="card-icon">
+          💊
+        </div>
+
+        <div>
+          <h3>Recetas</h3>
+          <p>Gestionar recetas médicas</p>
+        </div>
+
+      </a>
+
+
+      <a
+        routerLink="/usuarios"
+        class="dashboard-card"
+      >
+
+        <div class="card-icon">
+          👥
+        </div>
+
+        <div>
+          <h3>Usuarios</h3>
+          <p>Administrar usuarios del sistema</p>
+        </div>
+
+      </a>
+
+    </section>
+
+  </main>
+
+</div>

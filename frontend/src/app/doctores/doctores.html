@@ -1,0 +1,212 @@
+<div class="doctores-container">
+
+  <div class="header">
+
+    <div>
+      <h1>Doctores</h1>
+      <p>Gestión de doctores registrados</p>
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="nuevoDoctor()"
+    >
+      + Nuevo doctor
+    </button>
+
+  </div>
+
+  @if (mensaje) {
+    <div class="mensaje">
+      {{ mensaje }}
+    </div>
+  }
+
+  @if (error) {
+    <div class="error">
+      {{ error }}
+    </div>
+  }
+
+  @if (mostrarFormulario) {
+
+    <div class="form-card">
+
+      <h2>
+        {{ editando ? 'Editar doctor' : 'Nuevo doctor' }}
+      </h2>
+
+      <div class="form-grid">
+
+        <div>
+          <label>Nombre</label>
+
+          <input
+            type="text"
+            [(ngModel)]="doctorActual.nombre"
+            placeholder="Nombre completo"
+          />
+        </div>
+
+        <div>
+          <label>Cédula</label>
+
+          <input
+            type="text"
+            [(ngModel)]="doctorActual.cedula"
+            placeholder="Cédula"
+          />
+        </div>
+
+        <div>
+          <label>Especialidad</label>
+
+          <input
+            type="text"
+            [(ngModel)]="doctorActual.especialidad"
+            placeholder="Ej. Cardiología"
+          />
+        </div>
+
+        <div>
+          <label>Horario</label>
+
+          <input
+            type="text"
+            [(ngModel)]="doctorActual.horario"
+            placeholder="Ej. Lunes a viernes 8:00 - 16:00"
+          />
+        </div>
+
+        <div>
+          <label>Teléfono</label>
+
+          <input
+            type="text"
+            [(ngModel)]="doctorActual.telefono"
+            placeholder="Teléfono"
+          />
+        </div>
+
+        <div>
+          <label>Email</label>
+
+          <input
+            type="email"
+            [(ngModel)]="doctorActual.email"
+            placeholder="Correo electrónico"
+          />
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-primary"
+          (click)="guardarDoctor()"
+        >
+          {{ editando ? 'Actualizar' : 'Guardar' }}
+        </button>
+
+        <button
+          class="btn-secondary"
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  <div class="table-card">
+
+    <div class="search">
+
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        (input)="buscar()"
+        placeholder="Buscar por nombre, cédula, especialidad o email..."
+      />
+
+    </div>
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Nombre</th>
+          <th>Cédula</th>
+          <th>Especialidad</th>
+          <th>Horario</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Acciones</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @for (doctor of doctoresFiltrados; track doctor._id) {
+
+          <tr>
+
+            <td>{{ doctor.nombre }}</td>
+
+            <td>{{ doctor.cedula }}</td>
+
+            <td>{{ doctor.especialidad }}</td>
+
+            <td>{{ doctor.horario }}</td>
+
+            <td>{{ doctor.telefono }}</td>
+
+            <td>{{ doctor.email }}</td>
+
+            <td>
+
+              <button
+                class="btn-edit"
+                (click)="editarDoctor(doctor)"
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-delete"
+                (click)="eliminarDoctor(doctor)"
+              >
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+
+        }
+
+        @empty {
+
+          <tr>
+
+            <td colspan="7">
+              No hay doctores registrados.
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

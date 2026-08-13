@@ -1,0 +1,294 @@
+<div class="historiales-container">
+
+  <div class="header">
+
+    <div>
+      <h1>Historiales médicos</h1>
+
+      <p>
+        Gestión de antecedentes y atención médica
+      </p>
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="nuevoHistorial()"
+    >
+      + Nuevo historial
+    </button>
+
+  </div>
+
+  @if (mensaje) {
+
+    <div class="mensaje">
+      {{ mensaje }}
+    </div>
+
+  }
+
+  @if (error) {
+
+    <div class="error">
+      {{ error }}
+    </div>
+
+  }
+
+  @if (mostrarFormulario) {
+
+    <div class="form-card">
+
+      <h2>
+        {{
+          editando
+            ? 'Editar historial'
+            : 'Nuevo historial'
+        }}
+      </h2>
+
+      <div class="form-grid">
+
+        <div>
+
+          <label>Paciente</label>
+
+          <select
+            [(ngModel)]="historialActual.paciente"
+          >
+
+            <option value="">
+              Seleccione un paciente
+            </option>
+
+            @for (
+              paciente of pacientes;
+              track paciente._id
+            ) {
+
+              <option
+                [value]="paciente._id"
+              >
+
+                {{ paciente.nombre }}
+
+                -
+
+                {{ paciente.cedula }}
+
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+        <div>
+
+          <label>Doctor</label>
+
+          <select
+            [(ngModel)]="historialActual.doctor"
+          >
+
+            <option value="">
+              Seleccione un doctor
+            </option>
+
+            @for (
+              doctor of doctores;
+              track doctor._id
+            ) {
+
+              <option
+                [value]="doctor._id"
+              >
+
+                {{ doctor.nombre }}
+
+                -
+
+                {{ doctor.especialidad }}
+
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+        <div class="full">
+
+          <label>Diagnóstico</label>
+
+          <input
+            type="text"
+            [(ngModel)]="historialActual.diagnostico"
+            placeholder="Ingrese el diagnóstico"
+          />
+
+        </div>
+
+        <div class="full">
+
+          <label>Notas médicas</label>
+
+          <textarea
+            rows="5"
+            [(ngModel)]="historialActual.notas"
+            placeholder="Ingrese las notas médicas"
+          ></textarea>
+
+        </div>
+
+        <div>
+
+          <label>Fecha</label>
+
+          <input
+            type="date"
+            [(ngModel)]="historialActual.fecha"
+          />
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-primary"
+          (click)="guardarHistorial()"
+        >
+
+          {{
+            editando
+              ? 'Actualizar'
+              : 'Guardar'
+          }}
+
+        </button>
+
+        <button
+          class="btn-secondary"
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  <div class="table-card">
+
+    <div class="search">
+
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        (input)="buscar()"
+        placeholder="Buscar por paciente, doctor, diagnóstico o notas..."
+      />
+
+    </div>
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Paciente</th>
+
+          <th>Doctor</th>
+
+          <th>Diagnóstico</th>
+
+          <th>Notas</th>
+
+          <th>Fecha</th>
+
+          <th>Acciones</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @for (
+          historial of historialesFiltrados;
+          track historial._id
+        ) {
+
+          <tr>
+
+            <td>
+              {{ obtenerNombrePaciente(historial) }}
+            </td>
+
+            <td>
+              {{ obtenerNombreDoctor(historial) }}
+            </td>
+
+            <td>
+              {{ historial.diagnostico }}
+            </td>
+
+            <td>
+              {{ historial.notas }}
+            </td>
+
+            <td>
+              {{
+                historial.fecha
+                  | date:'dd/MM/yyyy'
+              }}
+            </td>
+
+            <td>
+
+              <button
+                class="btn-edit"
+                (click)="editarHistorial(historial)"
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-delete"
+                (click)="eliminarHistorial(historial)"
+              >
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+
+        }
+
+        @empty {
+
+          <tr>
+
+            <td colspan="6">
+              No hay historiales registrados.
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

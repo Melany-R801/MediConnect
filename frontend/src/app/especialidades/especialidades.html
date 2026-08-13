@@ -1,0 +1,197 @@
+<div class="especialidades-container">
+
+  <div class="header">
+
+    <div>
+      <h1>Especialidades</h1>
+      <p>Gestión de especialidades médicas</p>
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="nuevaEspecialidad()"
+    >
+      + Nueva especialidad
+    </button>
+
+  </div>
+
+  @if (mensaje) {
+    <div class="mensaje">
+      {{ mensaje }}
+    </div>
+  }
+
+  @if (error) {
+    <div class="error">
+      {{ error }}
+    </div>
+  }
+
+  @if (mostrarFormulario) {
+
+    <div class="form-card">
+
+      <h2>
+        {{ editando
+          ? 'Editar especialidad'
+          : 'Nueva especialidad'
+        }}
+      </h2>
+
+      <div class="form-grid">
+
+        <div>
+
+          <label>Nombre</label>
+
+          <input
+            type="text"
+            [(ngModel)]="especialidadActual.nombre"
+            placeholder="Ej. Cardiología"
+          />
+
+        </div>
+
+        <div>
+
+          <label>Estado</label>
+
+          <select
+            [(ngModel)]="especialidadActual.estado"
+          >
+            <option value="activa">
+              Activa
+            </option>
+
+            <option value="inactiva">
+              Inactiva
+            </option>
+          </select>
+
+        </div>
+
+        <div class="full">
+
+          <label>Descripción</label>
+
+          <textarea
+            [(ngModel)]="especialidadActual.descripcion"
+            placeholder="Descripción de la especialidad"
+            rows="4"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-primary"
+          (click)="guardarEspecialidad()"
+        >
+          {{ editando ? 'Actualizar' : 'Guardar' }}
+        </button>
+
+        <button
+          class="btn-secondary"
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  <div class="table-card">
+
+    <div class="search">
+
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        (input)="buscar()"
+        placeholder="Buscar por nombre o descripción..."
+      />
+
+    </div>
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @for (
+          especialidad of especialidadesFiltradas;
+          track especialidad._id
+        ) {
+
+          <tr>
+
+            <td>
+              {{ especialidad.nombre }}
+            </td>
+
+            <td>
+              {{ especialidad.descripcion }}
+            </td>
+
+            <td>
+              {{ especialidad.estado }}
+            </td>
+
+            <td>
+
+              <button
+                class="btn-edit"
+                (click)="editarEspecialidad(especialidad)"
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-delete"
+                (click)="eliminarEspecialidad(especialidad)"
+              >
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+
+        }
+
+        @empty {
+
+          <tr>
+
+            <td colspan="4">
+              No hay especialidades registradas.
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

@@ -1,0 +1,123 @@
+.pacientes-container {
+  padding: 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header h1 {
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #666;
+}
+
+.form-card,
+.table-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+}
+
+.btn-edit {
+  background: #f59e0b;
+  color: white;
+  margin-right: 5px;
+}
+
+.btn-delete {
+  background: #dc2626;
+  color: white;
+}
+
+.search {
+  margin-bottom: 20px;
+}
+
+.search input {
+  max-width: 500px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+th {
+  background: #f8fafc;
+}
+
+.mensaje {
+  padding: 12px;
+  margin-bottom: 20px;
+  background: #dcfce7;
+  border-radius: 7px;
+}
+
+.error {
+  padding: 12px;
+  margin-bottom: 20px;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 7px;
+}

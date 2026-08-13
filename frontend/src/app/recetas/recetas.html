@@ -1,0 +1,319 @@
+<div class="recetas-container">
+
+  <div class="header">
+
+    <div>
+      <h1>Recetas médicas</h1>
+
+      <p>
+        Gestión de medicamentos y tratamientos
+      </p>
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="nuevaReceta()"
+    >
+      + Nueva receta
+    </button>
+
+  </div>
+
+  @if (mensaje) {
+
+    <div class="mensaje">
+      {{ mensaje }}
+    </div>
+
+  }
+
+  @if (error) {
+
+    <div class="error">
+      {{ error }}
+    </div>
+
+  }
+
+  @if (mostrarFormulario) {
+
+    <div class="form-card">
+
+      <h2>
+        {{
+          editando
+            ? 'Editar receta'
+            : 'Nueva receta'
+        }}
+      </h2>
+
+      <div class="form-grid">
+
+        <div>
+
+          <label>Paciente</label>
+
+          <select
+            [(ngModel)]="recetaActual.paciente"
+          >
+
+            <option value="">
+              Seleccione un paciente
+            </option>
+
+            @for (
+              paciente of pacientes;
+              track paciente._id
+            ) {
+
+              <option
+                [value]="paciente._id"
+              >
+
+                {{ paciente.nombre }}
+                -
+                {{ paciente.cedula }}
+
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+        <div>
+
+          <label>Doctor</label>
+
+          <select
+            [(ngModel)]="recetaActual.doctor"
+          >
+
+            <option value="">
+              Seleccione un doctor
+            </option>
+
+            @for (
+              doctor of doctores;
+              track doctor._id
+            ) {
+
+              <option
+                [value]="doctor._id"
+              >
+
+                {{ doctor.nombre }}
+                -
+                {{ doctor.especialidad }}
+
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+        <div>
+
+          <label>Medicamento</label>
+
+          <input
+            type="text"
+            [(ngModel)]="recetaActual.medicamento"
+            placeholder="Ej. Paracetamol"
+          />
+
+        </div>
+
+        <div>
+
+          <label>Dosis</label>
+
+          <input
+            type="text"
+            [(ngModel)]="recetaActual.dosis"
+            placeholder="Ej. 500 mg cada 8 horas"
+          />
+
+        </div>
+
+        <div>
+
+          <label>Duración</label>
+
+          <input
+            type="text"
+            [(ngModel)]="recetaActual.duracion"
+            placeholder="Ej. 7 días"
+          />
+
+        </div>
+
+        <div>
+
+          <label>Fecha</label>
+
+          <input
+            type="date"
+            [(ngModel)]="recetaActual.fecha"
+          />
+
+        </div>
+
+        <div class="full">
+
+          <label>Indicaciones</label>
+
+          <textarea
+            rows="4"
+            [(ngModel)]="recetaActual.indicaciones"
+            placeholder="Indicaciones adicionales"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-primary"
+          (click)="guardarReceta()"
+        >
+
+          {{
+            editando
+              ? 'Actualizar'
+              : 'Guardar'
+          }}
+
+        </button>
+
+        <button
+          class="btn-secondary"
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  <div class="table-card">
+
+    <div class="search">
+
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        (input)="buscar()"
+        placeholder="Buscar por paciente, doctor o medicamento..."
+      />
+
+    </div>
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Paciente</th>
+          <th>Doctor</th>
+          <th>Medicamento</th>
+          <th>Dosis</th>
+          <th>Duración</th>
+          <th>Indicaciones</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @for (
+          receta of recetasFiltradas;
+          track receta._id
+        ) {
+
+          <tr>
+
+            <td>
+              {{ obtenerNombrePaciente(receta) }}
+            </td>
+
+            <td>
+              {{ obtenerNombreDoctor(receta) }}
+            </td>
+
+            <td>
+              {{ receta.medicamento }}
+            </td>
+
+            <td>
+              {{ receta.dosis }}
+            </td>
+
+            <td>
+              {{ receta.duracion }}
+            </td>
+
+            <td>
+              {{ receta.indicaciones || '—' }}
+            </td>
+
+            <td>
+              {{
+                receta.fecha
+                  | date:'dd/MM/yyyy'
+              }}
+            </td>
+
+            <td>
+
+              <button
+                class="btn-edit"
+                (click)="editarReceta(receta)"
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-delete"
+                (click)="eliminarReceta(receta)"
+              >
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+
+        }
+
+        @empty {
+
+          <tr>
+
+            <td colspan="8">
+              No hay recetas registradas.
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

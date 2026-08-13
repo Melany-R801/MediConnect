@@ -1,0 +1,331 @@
+<div class="citas-container">
+
+  <div class="header">
+
+    <div>
+      <h1>Citas</h1>
+      <p>Gestión de citas médicas</p>
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="nuevaCita()"
+    >
+      + Nueva cita
+    </button>
+
+  </div>
+
+  @if (mensaje) {
+
+    <div class="mensaje">
+      {{ mensaje }}
+    </div>
+
+  }
+
+  @if (error) {
+
+    <div class="error">
+      {{ error }}
+    </div>
+
+  }
+
+  @if (mostrarFormulario) {
+
+    <div class="form-card">
+
+      <h2>
+        {{ editando ? 'Editar cita' : 'Nueva cita' }}
+      </h2>
+
+      <div class="form-grid">
+
+        <div>
+
+          <label>Paciente</label>
+
+          <select
+            [(ngModel)]="citaActual.paciente"
+          >
+
+            <option value="">
+              Seleccione un paciente
+            </option>
+
+            @for (
+              paciente of pacientes;
+              track paciente._id
+            ) {
+
+              <option
+                [value]="paciente._id"
+              >
+                {{ paciente.nombre }}
+                -
+                {{ paciente.cedula }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+        <div>
+
+          <label>Doctor</label>
+
+          <select
+            [(ngModel)]="citaActual.doctor"
+          >
+
+            <option value="">
+              Seleccione un doctor
+            </option>
+
+            @for (
+              doctor of doctores;
+              track doctor._id
+            ) {
+
+              <option
+                [value]="doctor._id"
+              >
+                {{ doctor.nombre }}
+                -
+                {{ doctor.especialidad }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+        <div>
+
+          <label>Especialidad</label>
+
+          <select
+            [(ngModel)]="citaActual.especialidad"
+          >
+
+            <option value="">
+              Seleccione una especialidad
+            </option>
+
+            @for (
+              especialidad of especialidades;
+              track especialidad._id
+            ) {
+
+              <option
+                [value]="especialidad._id"
+              >
+                {{ especialidad.nombre }}
+              </option>
+
+            }
+
+          </select>
+
+        </div>
+
+        <div>
+
+          <label>Fecha</label>
+
+          <input
+            type="date"
+            [(ngModel)]="citaActual.fecha"
+          />
+
+        </div>
+
+        <div>
+
+          <label>Hora</label>
+
+          <input
+            type="time"
+            [(ngModel)]="citaActual.hora"
+          />
+
+        </div>
+
+        <div>
+
+          <label>Estado</label>
+
+          <select
+            [(ngModel)]="citaActual.estado"
+          >
+
+            <option value="programada">
+              Programada
+            </option>
+
+            <option value="confirmada">
+              Confirmada
+            </option>
+
+            <option value="atendida">
+              Atendida
+            </option>
+
+            <option value="cancelada">
+              Cancelada
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="full">
+
+          <label>Motivo</label>
+
+          <textarea
+            [(ngModel)]="citaActual.motivo"
+            rows="4"
+            placeholder="Motivo de la consulta"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-primary"
+          (click)="guardarCita()"
+        >
+          {{ editando ? 'Actualizar' : 'Guardar' }}
+        </button>
+
+        <button
+          class="btn-secondary"
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  <div class="table-card">
+
+    <div class="search">
+
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        (input)="buscar()"
+        placeholder="Buscar por paciente, doctor, especialidad, motivo o estado..."
+      />
+
+    </div>
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Paciente</th>
+          <th>Doctor</th>
+          <th>Especialidad</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Motivo</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @for (
+          cita of citasFiltradas;
+          track cita._id
+        ) {
+
+          <tr>
+
+            <td>
+              {{ obtenerNombrePaciente(cita) }}
+            </td>
+
+            <td>
+              {{ obtenerNombreDoctor(cita) }}
+            </td>
+
+            <td>
+              {{ obtenerNombreEspecialidad(cita) }}
+            </td>
+
+            <td>
+              {{ cita.fecha | date:'dd/MM/yyyy' }}
+            </td>
+
+            <td>
+              {{ cita.hora }}
+            </td>
+
+            <td>
+              {{ cita.motivo }}
+            </td>
+
+            <td>
+              {{ cita.estado }}
+            </td>
+
+            <td>
+
+              <button
+                class="btn-edit"
+                (click)="editarCita(cita)"
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-delete"
+                (click)="eliminarCita(cita)"
+              >
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+
+        }
+
+        @empty {
+
+          <tr>
+
+            <td colspan="8">
+              No hay citas registradas.
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

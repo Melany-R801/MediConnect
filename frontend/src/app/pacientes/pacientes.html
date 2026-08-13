@@ -1,0 +1,218 @@
+<div class="pacientes-container">
+
+  <div class="header">
+
+    <div>
+      <h1>Pacientes</h1>
+      <p>Gestión de pacientes registrados</p>
+    </div>
+
+    <button
+      class="btn-primary"
+      (click)="nuevoPaciente()"
+    >
+      + Nuevo paciente
+    </button>
+
+  </div>
+
+  @if (mensaje) {
+    <div class="mensaje">
+      {{ mensaje }}
+    </div>
+  }
+
+  @if (error) {
+    <div class="error">
+      {{ error }}
+    </div>
+  }
+
+  @if (mostrarFormulario) {
+
+    <div class="form-card">
+
+      <h2>
+        {{ editando ? 'Editar paciente' : 'Nuevo paciente' }}
+      </h2>
+
+      <div class="form-grid">
+
+        <div>
+          <label>Nombre</label>
+
+          <input
+            type="text"
+            [(ngModel)]="pacienteActual.nombre"
+            placeholder="Nombre"
+          />
+        </div>
+
+        <div>
+          <label>Apellido</label>
+
+          <input
+            type="text"
+            [(ngModel)]="pacienteActual.apellido"
+            placeholder="Apellido"
+          />
+        </div>
+
+        <div>
+          <label>Cédula</label>
+
+          <input
+            type="text"
+            [(ngModel)]="pacienteActual.cedula"
+            placeholder="Cédula"
+          />
+        </div>
+
+        <div>
+          <label>Teléfono</label>
+
+          <input
+            type="text"
+            [(ngModel)]="pacienteActual.telefono"
+            placeholder="Teléfono"
+          />
+        </div>
+
+        <div>
+          <label>Email</label>
+
+          <input
+            type="email"
+            [(ngModel)]="pacienteActual.email"
+            placeholder="Correo electrónico"
+          />
+        </div>
+
+        <div>
+          <label>Fecha de nacimiento</label>
+
+          <input
+            type="date"
+            [(ngModel)]="pacienteActual.fechaNacimiento"
+          />
+        </div>
+
+        <div class="full">
+          <label>Dirección</label>
+
+          <input
+            type="text"
+            [(ngModel)]="pacienteActual.direccion"
+            placeholder="Dirección"
+          />
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="btn-primary"
+          (click)="guardarPaciente()"
+        >
+          {{ editando ? 'Actualizar' : 'Guardar' }}
+        </button>
+
+        <button
+          class="btn-secondary"
+          (click)="cancelar()"
+        >
+          Cancelar
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+  <div class="table-card">
+
+    <div class="search">
+
+      <input
+        type="text"
+        [(ngModel)]="busqueda"
+        (input)="buscar()"
+        placeholder="Buscar por nombre, cédula o email..."
+      />
+
+    </div>
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Cédula</th>
+          <th>Teléfono</th>
+          <th>Email</th>
+          <th>Acciones</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @for (paciente of pacientesFiltrados; track paciente._id) {
+
+          <tr>
+
+            <td>{{ paciente.nombre }}</td>
+
+            <td>{{ paciente.apellido }}</td>
+
+            <td>{{ paciente.cedula }}</td>
+
+            <td>{{ paciente.telefono }}</td>
+
+            <td>{{ paciente.email }}</td>
+
+            <td>
+
+              <button
+                class="btn-edit"
+                (click)="editarPaciente(paciente)"
+              >
+                Editar
+              </button>
+
+              <button
+                class="btn-delete"
+                (click)="eliminarPaciente(paciente)"
+              >
+                Eliminar
+              </button>
+
+            </td>
+
+          </tr>
+
+        }
+
+        @empty {
+
+          <tr>
+
+            <td colspan="6">
+              No hay pacientes registrados.
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
