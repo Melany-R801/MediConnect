@@ -6,6 +6,7 @@ const connectDB = require('./config/database');
 const crearAdmin = require('./config/adminSeeder');
 
 const authRoutes = require('./routes/authRoutes');
+const pacienteRoutes = require('./routes/pacienteRoutes');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/pacientes', pacienteRoutes);
 
 app.get('/', (req, res) => {
     res.json({
