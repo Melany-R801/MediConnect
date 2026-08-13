@@ -19,7 +19,7 @@ export interface Historial {
 })
 export class HistorialesService {
 
-  private apiUrl = 'http://localhost:8080/api/historiales';
+  private apiUrl = 'https://mediconnect-production-0cf5.up.railway.app/api/historiales';
 
   constructor(private http: HttpClient) {}
 

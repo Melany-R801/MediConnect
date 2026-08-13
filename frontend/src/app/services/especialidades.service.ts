@@ -14,7 +14,7 @@ export interface Especialidad {
 })
 export class EspecialidadesService {
 
-  private apiUrl = 'http://localhost:8080/api/especialidades';
+  private apiUrl = 'https://mediconnect-production-0cf5.up.railway.app/api/especialidades';
 
   constructor(private http: HttpClient) {}
 

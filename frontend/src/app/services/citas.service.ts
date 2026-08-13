@@ -25,7 +25,7 @@ export interface Cita {
 })
 export class CitasService {
 
-  private apiUrl = 'http://localhost:8080/api/citas';
+  private apiUrl = 'https://mediconnect-production-0cf5.up.railway.app/api/citas';
 
   constructor(private http: HttpClient) {}
 

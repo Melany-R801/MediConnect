@@ -21,7 +21,7 @@ export interface Receta {
 })
 export class RecetasService {
 
-  private apiUrl = 'http://localhost:8080/api/recetas';
+  private apiUrl = 'https://mediconnect-production-0cf5.up.railway.app/api/recetas';
 
   constructor(private http: HttpClient) {}
 

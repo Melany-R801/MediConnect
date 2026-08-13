@@ -18,7 +18,7 @@ export interface Paciente {
 })
 export class PacientesService {
 
-  private apiUrl = 'http://localhost:8080/api/pacientes';
+  private apiUrl = 'https://mediconnect-production-0cf5.up.railway.app/api/pacientes';
 
   constructor(private http: HttpClient) {}
 
